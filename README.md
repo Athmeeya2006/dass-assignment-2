@@ -1,10 +1,14 @@
-# DASS Assignment Submission
+# DASS Assignment 2 Submission
 
 This repository contains the three required parts of the assignment:
 
 - `whitebox/`: MoneyPoly white-box testing
 - `integration/`: StreetRace Manager integration testing
 - `blackbox/`: QuickCart REST API black-box testing
+
+## Repository Link
+
+`https://github.com/Athmeeya2006/dass-assignment-2`
 
 ## Required Submission Structure
 
@@ -25,78 +29,77 @@ blackbox/
 README.md
 ```
 
-Note:
+The folders and PDFs above are the intended submission artifacts. Some extra working files may still exist in the repository for development history, verification, or local tooling.
 
-- Extra working files may still exist in the repository for development and
-  verification, but the structure above is the intended submission layout.
-- The hand-drawn diagram images must be placed in the corresponding
-  `diagrams/` folders before final submission.
+## Setup
 
-## Git Repository Link
+From the repository root:
 
-Repository:
-`https://github.com/Athmeeya2006/dass-assignment-2`
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install pytest pylint requests pytest-html
+```
 
 ## Whitebox: MoneyPoly
 
-MoneyPoly is a command-line board game that manages players, movement, money,
-property purchases, rent, cards, jail logic, bankruptcy, and winner selection.
+### Contents
 
-### Whitebox Deliverables
+- Code: `whitebox/code/moneypoly/`
+- Tests: `whitebox/tests/`
+- Diagrams folder: `whitebox/diagrams/`
+- Final report: `whitebox/report.pdf`
 
-- Source code: `whitebox/code/moneypoly/`
-- White-box tests: `whitebox/tests/`
-- Diagram folder: `whitebox/diagrams/`
-- Final report file for submission: `whitebox/report.pdf`
+### What Was Done
 
-### Whitebox Work Completed
+- Audited the internal MoneyPoly logic using white-box testing.
+- Designed tests to cover decision branches, key variable states, and important edge cases.
+- Fixed logical defects one by one using `Error #:` commits.
+- Improved code quality iteratively using `Iteration #:` commits.
+- Generated the final whitebox report as `whitebox/report.pdf`.
 
-- White-box tests were designed around branches, variable states, and edge
-  cases.
-- Logical issues were fixed one by one using `Error #:` commits.
-- Pylint cleanup was done iteratively using `Iteration #:` commits.
-- Verified local status:
-  - `python3 -m pytest whitebox/tests -q` -> `35 passed`
-  - `PYLINTHOME=/tmp/pylint .venv/bin/python -m pylint whitebox/code/moneypoly/main.py whitebox/code/moneypoly/moneypoly/*.py`
-    -> `10.00/10`
+### Verified Status
 
-### Important Whitebox Findings
+- `python3 -m pytest whitebox/tests -q` -> `35 passed`
+- `PYLINTHOME=/tmp/pylint .venv/bin/python -m pylint whitebox/code/moneypoly/main.py whitebox/code/moneypoly/moneypoly/*.py` -> `10.00/10`
+
+### Main Issues Found And Fixed
 
 - Dice originally used `1..5` instead of `1..6`.
-- Passing Go did not always pay salary.
-- Group rent logic accepted partial ownership instead of full ownership.
-- Bank loan and rent transfer logic had money-consistency issues.
-- Exact-balance purchases, mortgage handling, trade validation, jail fine
-  deduction, winner selection, and bankruptcy turn flow all required fixes.
+- Passing Go did not always award salary correctly.
+- Rent bonus logic accepted partial group ownership.
+- Rent payment did not credit the owner correctly.
+- Mortgage and unmortgage flows had state-consistency issues.
+- Trade handling had validation and transfer issues.
+- Jail fine handling had a balance deduction bug.
+- Winner selection and net-worth calculation were incorrect.
+- Bankruptcy could break turn order and doubles behavior.
 
-### How To Run Whitebox Code
-
-From the repository root:
+### How To Run The Whitebox Code
 
 ```bash
 cd whitebox/code/moneypoly
 python3 main.py
 ```
 
-### How To Run Whitebox Tests
-
-From the repository root:
+### How To Run The Whitebox Tests
 
 ```bash
 python3 -m pytest whitebox/tests -v
 ```
 
+### Manual Item Still Needed
+
+Add the hand-drawn control flow graph image to `whitebox/diagrams/`.
+
 ## Integration: StreetRace Manager
 
-StreetRace Manager is a command-line system built module-by-module and then
-tested for interaction between modules.
+### Contents
 
-### Integration Deliverables
-
-- Source code: `integration/code/`
-- Integration tests: `integration/tests/`
-- Diagram folder: `integration/diagrams/`
-- Final report file for submission: `integration/report.pdf`
+- Code: `integration/code/`
+- Tests: `integration/tests/`
+- Diagrams folder: `integration/diagrams/`
+- Final report: `integration/report.pdf`
 
 ### Modules Implemented
 
@@ -114,72 +117,83 @@ Additional modules:
 - Garage
 - Leaderboard
 
-### Verified Integration Status
+### What Was Done
+
+- Implemented and tested the StreetRace Manager modules.
+- Verified module-to-module interaction instead of only isolated functionality.
+- Designed integration tests around realistic workflows and business rules.
+- Generated the final integration report as `integration/report.pdf`.
+
+### Verified Status
 
 - `python3 -m pytest integration/tests -q` -> `154 passed`
 
-### Key Integration Rules Covered
+### Important Integration Rules Covered
 
-- A crew member must be registered before a role can be assigned.
-- Only crew members with the driver role may enter a race.
-- Damaged-car scenarios require mechanic availability when relevant.
-- Race results update rankings and inventory cash balance.
-- Missions cannot start when required roles are unavailable.
+- A crew member must be registered before system workflows can use that member.
+- Only drivers can be entered into races.
+- Unavailable drivers cannot be assigned to races.
+- Damaged cars cannot enter races until repaired.
+- Race results update both rankings and inventory cash balance.
+- Missions fail when required roles are unavailable.
+- Crew members reserved by races or missions are later released correctly.
 
-### How To Run Integration Code
-
-From the repository root:
+### How To Run The Integration Code
 
 ```bash
 cd integration/code
 python3 main.py
 ```
 
-### How To Run Integration Tests
-
-From the repository root:
+### How To Run The Integration Tests
 
 ```bash
 python3 -m pytest integration/tests -v
 ```
 
+### Manual Item Still Needed
+
+Add the hand-drawn call graph image to `integration/diagrams/`.
+
 ## Blackbox: QuickCart API
 
-QuickCart was tested as a black-box REST API using `pytest` and `requests`.
+### Contents
 
-### Blackbox Deliverables
+- Tests: `blackbox/tests/`
+- Final report: `blackbox/report.pdf`
 
-- Automated tests: `blackbox/tests/`
-- Final report file for submission: `blackbox/report.pdf`
+### What Was Done
 
-### Blackbox Coverage
+- Designed black-box tests directly from the QuickCart API documentation.
+- Covered valid requests, invalid inputs, missing fields, wrong data types, and boundary values.
+- Verified status codes, JSON structures, and returned data against the documented expectations.
+- Recorded bug findings in the final blackbox report.
 
-- Valid requests
-- Invalid inputs
-- Missing fields
-- Wrong data types
-- Boundary values
-- HTTP status code checks
-- JSON structure checks
-- Returned data validation against the API specification
+### Saved Execution Status
 
-### Existing Bug Findings
+The checked-in blackbox artifacts report:
 
-The saved bug documentation reports issues such as:
+- `147` total test cases
+- `130` passed
+- `17` failed
+- `1` skipped
 
-- cart accepting zero or negative quantities
-- incorrect subtotal and cart total calculations
-- invalid checkout behavior for COD and wallet cases
-- stock not being restored on order cancellation
-- invalid address, phone, and review validation behavior
-- wallet precision issues
-- incorrect status code for non-existent user IDs
+### Main Bugs Documented
 
-### How To Run Blackbox Tests
+- Cart accepts zero and negative quantities.
+- Cart subtotal and cart total calculations are incorrect.
+- COD checkout is allowed above the documented limit.
+- Wallet checkout succeeds with insufficient balance.
+- Cancelling orders does not restore stock correctly.
+- Address pincode validation is incomplete.
+- Profile phone validation is incomplete.
+- Review rating validation is incomplete.
+- Wallet deduction has a precision problem.
+- Non-existent user IDs return the wrong status code.
+
+### How To Run The Blackbox Tests
 
 Make sure the QuickCart API is running at `http://localhost:8080`.
-
-From the repository root:
 
 ```bash
 python3 -m pytest blackbox/tests -v
@@ -191,22 +205,17 @@ If dependencies are needed:
 pip install -r blackbox/requirements.txt
 ```
 
-## Setup Notes
+## Quick Verification Summary
 
-If you want a dedicated virtual environment from the repository root:
+- Whitebox tests: passing
+- Whitebox pylint: clean
+- Integration tests: passing
+- Blackbox report and test suite: present
+- Final PDFs: present in all three sections
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install pytest pylint requests pytest-html
-```
+## Final Submission Checklist
 
-## Final Manual Items Before Submission
-
-- Add the hand-drawn MoneyPoly control flow graph image to `whitebox/diagrams/`.
-- Add the hand-drawn StreetRace Manager call graph image to
-  `integration/diagrams/`.
-- Ensure the final polished reports are exported as:
-  - `whitebox/report.pdf`
-  - `integration/report.pdf`
-  - `blackbox/report.pdf`
+- Ensure `whitebox/report.pdf`, `integration/report.pdf`, and `blackbox/report.pdf` are present.
+- Ensure the hand-drawn whitebox control flow graph is placed in `whitebox/diagrams/`.
+- Ensure the hand-drawn integration call graph is placed in `integration/diagrams/`.
+- Push the final repository state to GitHub.
