@@ -41,6 +41,7 @@ whitebox/*
 !whitebox/report.pdf
 
 # Ignore working notes and non-submission artifacts
+scripts/
 whitebox/manual_submission_guide.md
 whitebox/report.md
 whitebox/scripts/
