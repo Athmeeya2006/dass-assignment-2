@@ -21,10 +21,15 @@ class Game:
     """Manages the full state and flow of a MoneyPoly game session."""
 
     def __init__(self, player_names):
+        cleaned_names = [name.strip() for name in player_names if name and name.strip()]
+        if len(cleaned_names) < 2:
+            raise ValueError("At least two players are required to start the game.")
+        if len(set(cleaned_names)) != len(cleaned_names):
+            raise ValueError("Player names must be unique.")
         self.board = Board()
         self.bank = Bank()
         self.dice = Dice()
-        self.players = [Player(name) for name in player_names]
+        self.players = [Player(name) for name in cleaned_names]
         self.current_index = 0
         self.turn_number = 0
         self.running = True
