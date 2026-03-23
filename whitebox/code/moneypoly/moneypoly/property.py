@@ -1,11 +1,18 @@
 """Property and property-group models for the MoneyPoly board."""
 
-class Property:
+class Property:  # pylint: disable=too-many-instance-attributes
     """Represents a single purchasable property tile on the MoneyPoly board."""
 
     FULL_GROUP_MULTIPLIER = 2
 
-    def __init__(self, name, position, price, base_rent, group=None):
+    def __init__(
+        self,
+        name,
+        position,
+        price,
+        base_rent,
+        group=None,
+    ):  # pylint: disable=too-many-arguments,too-many-positional-arguments
         self.name = name
         self.position = position
         self.price = price
