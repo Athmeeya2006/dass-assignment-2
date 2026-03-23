@@ -219,6 +219,12 @@ class Game:
         if prop.owner != seller:
             print(f"  Trade failed: {seller.name} does not own {prop.name}.")
             return False
+        if seller == buyer:
+            print("  Trade failed: a player cannot trade with themselves.")
+            return False
+        if cash_amount < 0:
+            print("  Trade failed: cash amount must be non-negative.")
+            return False
         if buyer.balance < cash_amount:
             print(f"  Trade failed: {buyer.name} cannot afford ${cash_amount}.")
             return False
