@@ -34,7 +34,13 @@ class Player:
 
     def net_worth(self):
         """Calculate and return this player's total net worth."""
-        return self.balance
+        property_value = 0
+        for prop in self.properties:
+            if prop.is_mortgaged:
+                property_value += prop.mortgage_value
+            else:
+                property_value += prop.price
+        return self.balance + property_value
 
     def move(self, steps):
         """
