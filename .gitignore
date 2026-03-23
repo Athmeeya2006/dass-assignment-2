@@ -38,6 +38,9 @@ whitebox/*
 !whitebox/diagrams/**
 !whitebox/diagrams/*.mmd
 !whitebox/diagrams/*.mermaid
+!whitebox/scripts/
+!whitebox/scripts/**
+!whitebox/report.md
 !whitebox/report.pdf
 
 # Always ignore generated Python/test artifacts
