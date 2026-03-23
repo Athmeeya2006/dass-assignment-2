@@ -27,7 +27,7 @@ blackbox/*
 !blackbox/tests/**
 !blackbox/report.pdf
 
-# Optional future whitebox structure (currently pending)
+# Keep whitebox submission files
 !whitebox/
 whitebox/*
 !whitebox/code/
@@ -38,10 +38,20 @@ whitebox/*
 !whitebox/diagrams/**
 !whitebox/diagrams/*.mmd
 !whitebox/diagrams/*.mermaid
-!whitebox/scripts/
-!whitebox/scripts/**
-!whitebox/report.md
 !whitebox/report.pdf
+
+# Ignore working notes and non-submission artifacts
+whitebox/manual_submission_guide.md
+whitebox/report.md
+whitebox/scripts/
+integration/report_template.md
+integration/test_report.html
+integration/assets/
+integration/requirements.txt
+blackbox/report.html
+blackbox/bug_reports/
+blackbox/requirements.txt
+*.DS_Store
 
 # Always ignore generated Python/test artifacts
 **/__pycache__/

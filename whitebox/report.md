@@ -215,3 +215,70 @@ defects were identified and corrected in a structured manner.
 - The automated Git helper is available at
   `whitebox/scripts/auto_git_push.py` for minute-by-minute commit and push
   automation.
+
+## Repository Audit
+
+This section records a final audit of the repository against the assignment
+brief so the submission state is clear.
+
+### Whitebox Status
+
+- Implementation under test is present in `whitebox/code/moneypoly/`.
+- White-box tests are present in `whitebox/tests/`.
+- Verification was rerun locally and passed:
+  `python3 -m pytest whitebox/tests -q` -> `35 passed`.
+- Pylint was rerun locally and passed:
+  `PYLINTHOME=/tmp/pylint .venv/bin/python -m pylint whitebox/code/moneypoly/main.py whitebox/code/moneypoly/moneypoly/*.py`
+  -> `10.00/10`.
+- Required commit workflow was completed with `test1`, `Error #:` commits, and
+  `Iteration #:` commits.
+- Remaining manual item:
+  the assignment requires a hand-drawn CFG image, and that image is still not
+  included in the repository.
+
+### Integration Status
+
+- StreetRace Manager source modules are present in `integration/code/`.
+- At least two extra modules are present:
+  `garage.py` and `leaderboard.py`.
+- Integration and module tests were rerun locally and passed:
+  `python3 -m pytest integration/tests -q` -> `154 passed`.
+- Call-graph source material is present in
+  `integration/diagrams/integration_call_graph.mmd` and
+  `integration/diagrams/call_graph_description.md`.
+- Existing report artifacts are present:
+  `integration/report.pdf` and `integration/test_report.html`.
+- Remaining manual item:
+  the assignment asks for a hand-drawn call-graph image, but the repository
+  currently contains graph source/description files rather than the final image
+  itself.
+
+### Blackbox Status
+
+- QuickCart automated API tests are present in `blackbox/tests/`.
+- Existing result artifacts are present:
+  `blackbox/report.html`, `blackbox/report.pdf`, and
+  `blackbox/bug_reports/bugs.md`.
+- The existing HTML report shows a previous run with
+  `147 tests`, `130 passed`, `17 failed`, and `1 skipped`.
+- The bug report captures verified issues and affected endpoints.
+- Current environment limitation:
+  a live rerun could not be completed during this audit because requests to
+  `http://localhost:8080/api/v1/...` fail in the sandbox with connection
+  errors, so blackbox behavior could only be audited from the checked-in test
+  suite and saved report artifacts.
+- Documentation gap to review before final submission:
+  the assignment asks each bug report to include method, URL, headers, and body
+  for the request payload. The checked-in `blackbox/bug_reports/bugs.md` lists
+  endpoints and observed behavior clearly, but those payload fields should be
+  checked against the final required format before submission.
+
+### Overall Audit Result
+
+- Whitebox code and tests are in good submission shape, pending the manual CFG
+  image.
+- Integration code and tests are in good submission shape, pending the manual
+  call-graph image.
+- Blackbox artifacts exist, but live execution could not be re-verified in this
+  sandbox, and the bug-report formatting should be checked one more time
+  against the assignment wording.

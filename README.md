@@ -1,14 +1,19 @@
-# StreetRace Manager + QuickCart Testing Submission
+# DASS Assignment Submission
 
-This repository contains coursework for two completed parts:
-- `integration/`: StreetRace Manager integration design, implementation, and tests
-- `blackbox/`: QuickCart REST API black-box automated tests
+This repository contains the three required parts of the assignment:
 
-Whitebox testing is still pending and will be added later under `whitebox/`.
+- `whitebox/`: MoneyPoly white-box testing
+- `integration/`: StreetRace Manager integration testing
+- `blackbox/`: QuickCart REST API black-box testing
 
-## Current Submission Structure
+## Required Submission Structure
 
 ```text
+whitebox/
+  code/
+  diagrams/
+  tests/
+  report.pdf
 integration/
   diagrams/
   tests/
@@ -20,95 +25,188 @@ blackbox/
 README.md
 ```
 
-## StreetRace Manager (Integration)
+Note:
 
-The command-line StreetRace Manager system is implemented module-by-module and integrated in `integration/code/`.
-
-Required modules implemented:
-- Registration module
-- Crew Management module
-- Inventory module
-- Race Management module
-- Results module
-- Mission Planning module
-
-Additional modules implemented:
-- Leaderboard module
-- Garage module
-
-### Key Business Rules Covered
-
-- A crew member must be registered before role assignment.
-- Only crew members with driver role can be entered in races.
-- Mission assignment validates required crew roles and availability.
-- Damaged-car scenarios are validated against mechanic availability.
-- Race outcomes update ranking and inventory cash balance.
-
-### Call Graph
-
-- Call graph artifacts are stored in `integration/diagrams/`.
-- The call graph includes function-level calls within and across modules.
-
-### Integration Test Design
-
-Integration tests are in `integration/tests/` and validate data flow and module interactions, including:
-- Registering a driver and entering the driver into a race.
-- Preventing race entry for invalid or unregistered drivers.
-- Recording race results and verifying ranking and inventory updates.
-- Mission assignment with role-availability validation.
-
-## Black-Box API Testing (QuickCart)
-
-Automated API tests are in `blackbox/tests/` and are written using `pytest` + `requests`.
-
-Test coverage includes:
-- Valid API requests
-- Invalid input handling
-- Missing-field behavior
-- Wrong data types
-- Boundary-value behavior
-- HTTP status code validation
-- JSON response structure validation
-- Data correctness checks against API documentation
-
-Bug findings are documented in the report and supporting notes under `blackbox/`.
-
-## How To Run
-
-### 1) Run StreetRace Manager CLI
-
-From repository root:
-
-```bash
-cd integration/code
-python main.py
-```
-
-### 2) Run Integration Tests
-
-From repository root:
-
-```bash
-pip install -r integration/requirements.txt
-pytest integration/tests -v
-```
-
-### 3) Run Black-Box Tests
-
-Make sure the QuickCart API is running and reachable at `http://localhost:8080`.
-
-From repository root:
-
-```bash
-pip install -r blackbox/requirements.txt
-pytest blackbox/tests -v
-```
+- Extra working files may still exist in the repository for development and
+  verification, but the structure above is the intended submission layout.
+- The hand-drawn diagram images must be placed in the corresponding
+  `diagrams/` folders before final submission.
 
 ## Git Repository Link
 
-- Add your GitHub repository URL here: `https://github.com/<your-username>/<your-repo>`
+Repository:
+`https://github.com/Athmeeya2006/dass-assignment-2`
 
-## Status
+## Whitebox: MoneyPoly
 
-- Completed: `integration/`, `blackbox/`
-- Pending: `whitebox/`
+MoneyPoly is a command-line board game that manages players, movement, money,
+property purchases, rent, cards, jail logic, bankruptcy, and winner selection.
+
+### Whitebox Deliverables
+
+- Source code: `whitebox/code/moneypoly/`
+- White-box tests: `whitebox/tests/`
+- Diagram folder: `whitebox/diagrams/`
+- Final report file for submission: `whitebox/report.pdf`
+
+### Whitebox Work Completed
+
+- White-box tests were designed around branches, variable states, and edge
+  cases.
+- Logical issues were fixed one by one using `Error #:` commits.
+- Pylint cleanup was done iteratively using `Iteration #:` commits.
+- Verified local status:
+  - `python3 -m pytest whitebox/tests -q` -> `35 passed`
+  - `PYLINTHOME=/tmp/pylint .venv/bin/python -m pylint whitebox/code/moneypoly/main.py whitebox/code/moneypoly/moneypoly/*.py`
+    -> `10.00/10`
+
+### Important Whitebox Findings
+
+- Dice originally used `1..5` instead of `1..6`.
+- Passing Go did not always pay salary.
+- Group rent logic accepted partial ownership instead of full ownership.
+- Bank loan and rent transfer logic had money-consistency issues.
+- Exact-balance purchases, mortgage handling, trade validation, jail fine
+  deduction, winner selection, and bankruptcy turn flow all required fixes.
+
+### How To Run Whitebox Code
+
+From the repository root:
+
+```bash
+cd whitebox/code/moneypoly
+python3 main.py
+```
+
+### How To Run Whitebox Tests
+
+From the repository root:
+
+```bash
+python3 -m pytest whitebox/tests -v
+```
+
+## Integration: StreetRace Manager
+
+StreetRace Manager is a command-line system built module-by-module and then
+tested for interaction between modules.
+
+### Integration Deliverables
+
+- Source code: `integration/code/`
+- Integration tests: `integration/tests/`
+- Diagram folder: `integration/diagrams/`
+- Final report file for submission: `integration/report.pdf`
+
+### Modules Implemented
+
+Required modules:
+
+- Registration
+- Crew Management
+- Inventory
+- Race Management
+- Results
+- Mission Planning
+
+Additional modules:
+
+- Garage
+- Leaderboard
+
+### Verified Integration Status
+
+- `python3 -m pytest integration/tests -q` -> `154 passed`
+
+### Key Integration Rules Covered
+
+- A crew member must be registered before a role can be assigned.
+- Only crew members with the driver role may enter a race.
+- Damaged-car scenarios require mechanic availability when relevant.
+- Race results update rankings and inventory cash balance.
+- Missions cannot start when required roles are unavailable.
+
+### How To Run Integration Code
+
+From the repository root:
+
+```bash
+cd integration/code
+python3 main.py
+```
+
+### How To Run Integration Tests
+
+From the repository root:
+
+```bash
+python3 -m pytest integration/tests -v
+```
+
+## Blackbox: QuickCart API
+
+QuickCart was tested as a black-box REST API using `pytest` and `requests`.
+
+### Blackbox Deliverables
+
+- Automated tests: `blackbox/tests/`
+- Final report file for submission: `blackbox/report.pdf`
+
+### Blackbox Coverage
+
+- Valid requests
+- Invalid inputs
+- Missing fields
+- Wrong data types
+- Boundary values
+- HTTP status code checks
+- JSON structure checks
+- Returned data validation against the API specification
+
+### Existing Bug Findings
+
+The saved bug documentation reports issues such as:
+
+- cart accepting zero or negative quantities
+- incorrect subtotal and cart total calculations
+- invalid checkout behavior for COD and wallet cases
+- stock not being restored on order cancellation
+- invalid address, phone, and review validation behavior
+- wallet precision issues
+- incorrect status code for non-existent user IDs
+
+### How To Run Blackbox Tests
+
+Make sure the QuickCart API is running at `http://localhost:8080`.
+
+From the repository root:
+
+```bash
+python3 -m pytest blackbox/tests -v
+```
+
+If dependencies are needed:
+
+```bash
+pip install -r blackbox/requirements.txt
+```
+
+## Setup Notes
+
+If you want a dedicated virtual environment from the repository root:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install pytest pylint requests pytest-html
+```
+
+## Final Manual Items Before Submission
+
+- Add the hand-drawn MoneyPoly control flow graph image to `whitebox/diagrams/`.
+- Add the hand-drawn StreetRace Manager call graph image to
+  `integration/diagrams/`.
+- Ensure the final polished reports are exported as:
+  - `whitebox/report.pdf`
+  - `integration/report.pdf`
+  - `blackbox/report.pdf`
