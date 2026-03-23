@@ -57,6 +57,7 @@ class Game:
             self.advance_turn()
             return
 
+        self.interactive_menu(player)
         roll = self.dice.roll()
         print(f"  {player.name} rolled: {self.dice.describe()}")
 
