@@ -242,6 +242,12 @@ class Game:
 
     def auction_property(self, prop):
         """Run an open auction for `prop` among all active players."""
+        if prop.owner is not None:
+            print(f"  Auction cancelled: {prop.name} is already owned by {prop.owner.name}.")
+            return False
+        if prop.is_mortgaged:
+            print(f"  Auction cancelled: {prop.name} is mortgaged.")
+            return False
         print(f"\n  [Auction] Bidding on {prop.name} (listed at ${prop.price})")
         highest_bid = 0
         highest_bidder = None
@@ -273,8 +279,10 @@ class Game:
                 f"  {highest_bidder.name} won {prop.name} "
                 f"at auction for ${highest_bid}."
             )
-        else:
-            print(f"  No bids placed. {prop.name} remains unowned.")
+            return True
+
+        print(f"  No bids placed. {prop.name} remains unowned.")
+        return False
 
     def _handle_jail_turn(self, player):
         """Process a jailed player's turn — offer to pay fine or use card."""
