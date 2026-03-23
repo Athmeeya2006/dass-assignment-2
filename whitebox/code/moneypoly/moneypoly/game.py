@@ -70,6 +70,10 @@ class Game:
 
         self._move_and_resolve(player, roll)
 
+        if player not in self.players and not self.dice.is_doubles():
+            self.turn_number += 1
+            return
+
         # Rolling doubles earns an extra turn
         if self.dice.is_doubles():
             print(f"  Doubles! {player.name} rolls again.")
