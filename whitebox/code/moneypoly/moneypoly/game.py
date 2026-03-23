@@ -1,3 +1,5 @@
+"""Core game flow, turn handling, and transaction logic for MoneyPoly."""
+
 from moneypoly.config import (
     JAIL_FINE,
     AUCTION_MIN_INCREMENT,

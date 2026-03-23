@@ -1,3 +1,5 @@
+"""Board construction and tile classification helpers for MoneyPoly."""
+
 from moneypoly.property import Property, PropertyGroup
 from moneypoly.config import (
     JAIL_POSITION,

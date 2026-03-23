@@ -1,3 +1,5 @@
+"""Dice rolling logic for MoneyPoly."""
+
 import random
 
 
