@@ -70,7 +70,7 @@ class Game:
 
         self._move_and_resolve(player, roll)
 
-        if player not in self.players and not self.dice.is_doubles():
+        if player not in self.players:
             self.turn_number += 1
             return
 
