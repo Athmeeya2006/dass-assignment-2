@@ -16,8 +16,6 @@ integration/*
 !integration/tests/**
 !integration/diagrams/
 !integration/diagrams/**
-!integration/diagrams/*.mmd
-!integration/diagrams/*.mermaid
 !integration/report.pdf
 
 # Keep blackbox submission files
@@ -36,8 +34,6 @@ whitebox/*
 !whitebox/tests/**
 !whitebox/diagrams/
 !whitebox/diagrams/**
-!whitebox/diagrams/*.mmd
-!whitebox/diagrams/*.mermaid
 !whitebox/report.pdf
 
 # Ignore working notes and non-submission artifacts
@@ -49,10 +45,14 @@ integration/report_template.md
 integration/test_report.html
 integration/assets/
 integration/requirements.txt
+integration/diagrams/*.mmd
+integration/diagrams/*.mermaid
 blackbox/report.html
 blackbox/bug_reports/
 blackbox/requirements.txt
 *.DS_Store
+whitebox/diagrams/*.mmd
+whitebox/diagrams/*.mermaid
 
 # Always ignore generated Python/test artifacts
 **/__pycache__/
