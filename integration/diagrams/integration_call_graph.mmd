@@ -1,0 +1,209 @@
+flowchart LR
+  %% StreetRace Manager - Integration Call Graph (module-level + key function links)
+
+  subgraph REG[registration.py]
+    reg_register[register_member]
+    reg_get[get_member]
+    reg_list[list_members]
+    reg_remove[remove_member]
+  end
+
+  subgraph CREW[crew_management.py]
+    crew_assign[assign_role]
+    crew_skill[update_skill_level]
+    crew_setavail[set_availability]
+    crew_byrole[get_available_by_role]
+  end
+
+  subgraph INV[inventory.py]
+    inv_addcar[add_car]
+    inv_getcar[get_car]
+    inv_listcars[list_cars]
+    inv_cond[update_car_condition]
+    inv_item[add_inventory_item]
+    inv_cash[get_cash_balance]
+    inv_addcash[add_cash]
+    inv_deduct[deduct_cash]
+  end
+
+  subgraph RACE[race_management.py]
+    race_create[create_race]
+    race_get[get_race]
+    race_list[list_races]
+    race_driver[assign_driver_to_race]
+    race_car[assign_car_to_race]
+    race_start[start_race]
+  end
+
+  subgraph RES[results.py]
+    res_record[record_result]
+    res_rank[get_rankings]
+    res_stats[get_driver_stats]
+  end
+
+  subgraph MIS[mission_planning.py]
+    mis_create[create_mission]
+    mis_get[get_mission]
+    mis_assign[assign_mission]
+    mis_complete[complete_mission]
+    mis_fail[fail_mission]
+  end
+
+  subgraph LEAD[leaderboard.py]
+    lead_full[get_full_leaderboard]
+    lead_top[get_top_driver]
+    lead_rate[get_mission_success_rate]
+  end
+
+  subgraph GAR[garage.py]
+    gar_repair[repair_car]
+    gar_log[get_repair_log]
+    gar_need[get_cars_needing_repair]
+  end
+
+  subgraph CLI[main.py]
+    cli_run[run_cli]
+    cli_reg[registration_menu]
+    cli_crew[crew_menu]
+    cli_inv[inventory_menu]
+    cli_race[races_menu]
+    cli_res[results_menu]
+    cli_mis[missions_menu]
+    cli_lead[leaderboard_menu]
+    cli_gar[garage_menu]
+  end
+
+  STORE[(store.py\ncentral shared state)]
+
+  %% Cross-module function calls
+  crew_assign --> reg_get
+  crew_skill --> reg_get
+  crew_setavail --> reg_get
+
+  race_driver --> race_get
+  race_driver --> reg_get
+  race_driver --> crew_setavail
+
+  race_car --> race_get
+  race_car --> inv_getcar
+
+  res_record --> race_get
+  res_record --> inv_addcash
+  res_record --> inv_cond
+  res_record --> crew_setavail
+
+  res_stats --> reg_get
+
+  mis_assign --> mis_get
+  mis_assign --> crew_byrole
+  mis_assign --> crew_setavail
+
+  mis_complete --> mis_get
+  mis_complete --> crew_setavail
+
+  mis_fail --> mis_get
+  mis_fail --> crew_setavail
+
+  lead_full --> res_rank
+  lead_full --> reg_get
+  lead_top --> lead_full
+
+  gar_repair --> inv_getcar
+  gar_repair --> reg_get
+  gar_repair --> inv_cond
+
+  %% CLI dispatch edges
+  cli_run --> cli_reg
+  cli_run --> cli_crew
+  cli_run --> cli_inv
+  cli_run --> cli_race
+  cli_run --> cli_res
+  cli_run --> cli_mis
+  cli_run --> cli_lead
+  cli_run --> cli_gar
+
+  cli_reg --> reg_register
+  cli_reg --> reg_get
+  cli_reg --> reg_list
+  cli_reg --> reg_remove
+
+  cli_crew --> crew_assign
+  cli_crew --> crew_skill
+  cli_crew --> crew_setavail
+  cli_crew --> crew_byrole
+
+  cli_inv --> inv_addcar
+  cli_inv --> inv_getcar
+  cli_inv --> inv_listcars
+  cli_inv --> inv_cond
+  cli_inv --> inv_item
+  cli_inv --> inv_cash
+  cli_inv --> inv_addcash
+  cli_inv --> inv_deduct
+
+  cli_race --> race_create
+  cli_race --> race_driver
+  cli_race --> race_car
+  cli_race --> race_start
+  cli_race --> race_get
+  cli_race --> race_list
+
+  cli_res --> res_record
+  cli_res --> res_rank
+  cli_res --> res_stats
+
+  cli_mis --> mis_create
+  cli_mis --> mis_assign
+  cli_mis --> mis_complete
+  cli_mis --> mis_fail
+  cli_mis --> mis_get
+
+  cli_lead --> lead_full
+  cli_lead --> lead_top
+  cli_lead --> lead_rate
+
+  cli_gar --> gar_repair
+  cli_gar --> gar_log
+  cli_gar --> gar_need
+
+  %% State ownership edges
+  reg_register --> STORE
+  reg_get --> STORE
+  reg_list --> STORE
+  reg_remove --> STORE
+
+  crew_assign --> STORE
+  crew_skill --> STORE
+  crew_setavail --> STORE
+  crew_byrole --> STORE
+
+  inv_addcar --> STORE
+  inv_getcar --> STORE
+  inv_listcars --> STORE
+  inv_cond --> STORE
+  inv_item --> STORE
+  inv_cash --> STORE
+  inv_addcash --> STORE
+  inv_deduct --> STORE
+
+  race_create --> STORE
+  race_get --> STORE
+  race_list --> STORE
+  race_driver --> STORE
+  race_car --> STORE
+  race_start --> STORE
+
+  res_record --> STORE
+  res_rank --> STORE
+  res_stats --> STORE
+
+  mis_create --> STORE
+  mis_get --> STORE
+  mis_assign --> STORE
+  mis_complete --> STORE
+  mis_fail --> STORE
+
+  lead_rate --> STORE
+  gar_repair --> STORE
+  gar_log --> STORE
+  gar_need --> STORE

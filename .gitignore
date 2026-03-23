@@ -1,0 +1,48 @@
+# Ignore everything by default
+*
+
+# Keep ignore rules file
+!.gitignore
+
+# Keep root README
+!README.md
+
+# Keep integration submission files
+!integration/
+integration/*
+!integration/code/
+!integration/code/**
+!integration/tests/
+!integration/tests/**
+!integration/diagrams/
+!integration/diagrams/**
+!integration/diagrams/*.mmd
+!integration/diagrams/*.mermaid
+!integration/report.pdf
+
+# Keep blackbox submission files
+!blackbox/
+blackbox/*
+!blackbox/tests/
+!blackbox/tests/**
+!blackbox/report.pdf
+
+# Optional future whitebox structure (currently pending)
+!whitebox/
+whitebox/*
+!whitebox/code/
+!whitebox/code/**
+!whitebox/tests/
+!whitebox/tests/**
+!whitebox/diagrams/
+!whitebox/diagrams/**
+!whitebox/diagrams/*.mmd
+!whitebox/diagrams/*.mermaid
+!whitebox/report.pdf
+
+# Always ignore generated Python/test artifacts
+**/__pycache__/
+*.py[cod]
+**/.pytest_cache/
+*.coverage
+coverage.xml
