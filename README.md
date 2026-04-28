@@ -1,5 +1,3 @@
-# DASS Assignment 2 Submission
-
 This repository contains the three required parts of the assignment:
 
 - `whitebox/`: MoneyPoly white-box testing
